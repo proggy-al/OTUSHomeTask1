@@ -27,5 +27,28 @@ namespace Otus.Teaching.PromoCodeFactory.DataAccess.Repositories
         {
             return Task.FromResult(Data.FirstOrDefault(x => x.Id == id));
         }
+
+        public Task<T> CreateAsync(T item)
+        {
+            item.Id = Guid.NewGuid();
+            Data = Data.Append(item);
+            return Task.FromResult(item);
+        }
+
+        public Task<T> UpdateAsync(T item)
+        {
+            var updItem = Data.FirstOrDefault(x => x.Id == item.Id);
+            if (updItem != null)
+            {
+                updItem = item;
+            }
+            return Task.FromResult(updItem);
+        }
+
+        public Task DeleteAsync(T entity)
+        {
+            Data = Data.Where(x => x.Id != entity.Id);
+            return Task.CompletedTask;
+        }
     }
 }
