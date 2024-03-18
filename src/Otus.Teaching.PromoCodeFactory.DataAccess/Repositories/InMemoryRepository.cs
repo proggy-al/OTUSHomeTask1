@@ -45,9 +45,9 @@ namespace Otus.Teaching.PromoCodeFactory.DataAccess.Repositories
             return Task.FromResult(updItem);
         }
 
-        public Task DeleteAsync(T entity)
+        public Task DeleteAsync(T item)
         {
-            Data = Data.Where(x => x.Id != entity.Id);
+            Data = Data.Where(x => x.Id != item.Id);
             return Task.CompletedTask;
         }
     }
